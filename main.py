@@ -2,10 +2,9 @@ from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, SubmitField, DateField
+from wtforms import StringField, SelectField, SubmitField, DateField, BooleanField
 from wtforms.validators import DataRequired
 from datetime import datetime
-import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "8BYkEfBA6O6donzWlSihBXox7C0sKR6b"
@@ -14,6 +13,7 @@ Bootstrap5(app)
 # CREATE DB
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///tasks.db"
 db = SQLAlchemy(app)
+
 class Task(db.Model):
     __tablename__ = 'tasks'  # Improved table name
     id = db.Column(db.Integer, primary_key=True)
@@ -21,6 +21,7 @@ class Task(db.Model):
     priority = db.Column(db.String(100), nullable=False)  # Improved column name
     due_date = db.Column(db.Date, nullable=False)
     description = db.Column(db.String(250), nullable=False)
+    completed = db.Column(db.Boolean, nullable=False, default=False)
 
 with app.app_context():
     db.create_all()
@@ -34,6 +35,7 @@ class TaskForm(FlaskForm):
     ], validators=[DataRequired()])  # Improved field name and label
     due_date = DateField('Due Date', format='%Y-%m-%d', validators=[DataRequired()], default=datetime.today)
     description = StringField('Description', validators=[DataRequired()])
+    completed = BooleanField("Completed")
     submit = SubmitField('Submit')
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -44,7 +46,8 @@ def add_task():
             name=form.name.data,
             priority=form.priority.data,
             due_date=form.due_date.data,
-            description=form.description.data
+            description=form.description.data,
+            completed=form.completed.data
         )
         db.session.add(new_task)
         db.session.commit()
@@ -68,6 +71,7 @@ def edit_task(task_id):
         task.priority = form.priority.data
         task.due_date = form.due_date.data
         task.description = form.description.data
+        task.completed = form.completed.data
         db.session.commit()
         return redirect(url_for('index'))
     return render_template('add_task.html', form=form, is_edit=True)

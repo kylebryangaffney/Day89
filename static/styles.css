@@ -1,0 +1,39 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: #007bff; /* Bootstrap's primary color */
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-control {
+    margin-bottom: 15px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.footer {
+    padding: 20px 0;
+    background-color: #f8f9fa;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 14px;
+    color: #6c757d;
+}
