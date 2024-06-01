@@ -1,39 +1,104 @@
-/* styles.css */
-
 body {
     font-family: Arial, sans-serif;
+    background-color: #343a40; /* Dark background */
+    color: #f8f9fa; /* Light text */
 }
 
 h1 {
-    color: #007bff; /* Bootstrap's primary color */
+    color: #17a2b8; /* Bootstrap's info color */
     margin-bottom: 20px;
 }
 
 .form-label {
     font-weight: bold;
+    color: #f8f9fa; /* White text */
 }
 
 .form-control {
     margin-bottom: 15px;
+    background-color: #495057;
+    border: 1px solid #ced4da;
+    color: #f8f9fa; /* White text */
 }
 
 .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: #f8f9fa; /* White text */
 }
 
 .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #004085;
+    background-color: #138496;
+    border-color: #117a8b;
+    color: #f8f9fa; /* White text */
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #343a40; /* Dark text */
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+    color: #343a40; /* Dark text */
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #f8f9fa; /* White text */
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+    color: #f8f9fa; /* White text */
 }
 
 .footer {
     padding: 20px 0;
-    background-color: #f8f9fa;
+    background-color: #011d39;
 }
 
 .footer p {
     margin: 0;
     font-size: 14px;
-    color: #6c757d;
+    color: #adb5bd; /* Light grey text */
+}
+
+.nav-pills .nav-link {
+    color: #f8f9fa; /* White text */
+    background-color: #343a40;
+    border: 1px solid #495057;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #17a2b8;
+    color: #f8f9fa; /* White text */
+}
+
+.navbar {
+    background-color: #343a40;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #f8f9fa; /* White text */
+}
+
+.dropdown-menu {
+    background-color: #495057;
+    border: none;
+}
+
+.dropdown-item {
+    color: #f8f9fa; /* White text */
+}
+
+.dropdown-item:hover {
+    background-color: #343a40;
 }

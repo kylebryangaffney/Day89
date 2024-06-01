@@ -5,9 +5,10 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField, DateField, BooleanField
 from wtforms.validators import DataRequired
 from datetime import datetime
+import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = "8BYkEfBA6O6donzWlSihBXox7C0sKR6b"
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'default-secret-key')
 Bootstrap5(app)
 
 # CREATE DB
@@ -15,10 +16,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///tasks.db"
 db = SQLAlchemy(app)
 
 class Task(db.Model):
-    __tablename__ = 'tasks'  # Improved table name
+    __tablename__ = 'tasks'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(250), unique=True, nullable=False)
-    priority = db.Column(db.String(100), nullable=False)  # Improved column name
+    priority = db.Column(db.String(100), nullable=False)
     due_date = db.Column(db.Date, nullable=False)
     description = db.Column(db.String(250), nullable=False)
     completed = db.Column(db.Boolean, nullable=False, default=False)
@@ -27,16 +28,20 @@ with app.app_context():
     db.create_all()
 
 class TaskForm(FlaskForm):
-    name = StringField('Task Name', validators=[DataRequired()])  # Improved field name
+    name = StringField('Task Name', validators=[DataRequired()])
     priority = SelectField('Priority', choices=[
-        ('less important', 'Less Important'),
-        ('important', 'Important'),
-        ('critical', 'Critical')
-    ], validators=[DataRequired()])  # Improved field name and label
+        ('Less Important', 'Less Important'),
+        ('Important', 'Important'),
+        ('Critical', 'Critical')
+    ], validators=[DataRequired()])
     due_date = DateField('Due Date', format='%Y-%m-%d', validators=[DataRequired()], default=datetime.today)
     description = StringField('Description', validators=[DataRequired()])
     completed = BooleanField("Completed")
     submit = SubmitField('Submit')
+
+@app.context_processor
+def inject_year():
+    return {'year': datetime.now().year}
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_task():
